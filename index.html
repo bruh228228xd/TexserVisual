@@ -12,72 +12,91 @@
         body { background: #020205; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; animation: siteAppear 2s ease-out forwards; }
         @keyframes siteAppear { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- ВИЗУАЛЫ --- */
+        /* --- ФОН --- */
         .nebula { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(36, 161, 222, 0.08), transparent 70%); z-index: -2; animation: nebulaPulse 8s infinite alternate; }
         @keyframes nebulaPulse { from { opacity: 0.4; transform: scale(1); } to { opacity: 0.8; transform: scale(1.1); } }
         #starfield { position: fixed; top: -5%; left: -5%; width: 110%; height: 110%; z-index: -1; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--d) infinite ease-in-out; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.1; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.3); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.3); } }
 
         /* --- ГЛАВНЫЙ ЭКРАН --- */
         .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 40px 20px; }
+        
         .title-container { position: relative; margin-bottom: 50px; display: flex; align-items: center; gap: 25px; cursor: default; }
-        h1 { font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: 800; letter-spacing: 10px; text-transform: uppercase; background: linear-gradient(90deg, #fff, #24A1DE, #fff, #24A1DE); background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: titleGlow 5s linear infinite; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
-        @keyframes titleGlow { to { background-position: 300% center; } }
-        .moon-icon { width: 40px; height: 35px; box-shadow: -10px 10px 0 0 #fff; border-radius: 50%; transform: rotate(-15deg); margin-bottom: 30px; transition: 0.8s; animation: moonFloat 4s ease-in-out infinite; }
-        @keyframes moonFloat { 0%, 100% { transform: rotate(-15deg) translateY(0); } 50% { transform: rotate(-25deg) translateY(-15px); } }
+        h1 { font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: 800; letter-spacing: 10px; text-transform: uppercase; background: linear-gradient(90deg, #fff, #24A1DE, #fff, #24A1DE); background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: titleGlow 5s linear infinite; filter: drop-shadow(0 0 15px rgba(36, 161, 222, 0.4)); transition: 0.5s; }
+        
+        .moon-icon { width: 40px; height: 35px; box-shadow: -10px 10px 0 0 #fff; border-radius: 50%; transform: rotate(-15deg); margin-bottom: 30px; transition: 0.8s; animation: moonFloat 4s ease-in-out infinite; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+        @keyframes moonFloat { 0%, 100% { transform: rotate(-15deg) translateY(0); } 50% { transform: rotate(-25deg) translateY(-12px); } }
+        
+        .title-container:hover h1 { filter: drop-shadow(0 0 25px rgba(36, 161, 222, 0.8)); }
+        .title-container:hover .moon-icon { box-shadow: -10px 10px 0 0 #24A1DE; filter: drop-shadow(0 0 20px #24A1DE); }
         .moon-icon.blood-moon { box-shadow: -10px 10px 0 0 #ff0000 !important; filter: drop-shadow(0 0 30px #ff0000) !important; }
 
-        .info-box { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); padding: 35px 60px; border-radius: 35px; text-align: center; max-width: 750px; margin-bottom: 60px; backdrop-filter: blur(20px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        /* --- КНОПКИ С ИКОНКАМИ --- */
+        .btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; margin-bottom: 20px; }
+        .link-item { 
+            text-decoration: none; color: white; padding: 16px 32px; border-radius: 18px; font-size: 12px; font-weight: 600; 
+            text-transform: uppercase; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); 
+            display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 280px; letter-spacing: 1px;
+        }
 
-        /* --- ИСПРАВЛЕННЫЕ КНОПКИ --- */
-        .button-group { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
-        .btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; }
-        .link-item { text-decoration: none; color: white; padding: 18px 36px; border-radius: 18px; font-size: 11px; font-weight: 600; text-transform: uppercase; transition: 0.4s; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); text-align: center; min-width: 260px; letter-spacing: 2px; }
-        .link-item:hover:not(.disabled) { background: white; color: black; transform: translateY(-7px); box-shadow: 0 20px 40px rgba(255,255,255,0.1); }
-        .disabled { opacity: 0.2; cursor: not-allowed; border-style: dashed; }
+        /* Анимации иконок */
+        .icon { width: 20px; height: 20px; fill: currentColor; transition: 0.4s; }
+        
+        /* Telegram Hover */
+        .link-item.tg:hover { color: #24A1DE; border-color: #24A1DE; box-shadow: 0 0 30px rgba(36, 161, 222, 0.4); background: rgba(36, 161, 222, 0.05); }
+        .link-item.tg:hover .icon { transform: rotate(-15deg) scale(1.2); filter: drop-shadow(0 0 8px #24A1DE); }
+
+        /* YouTube Hover */
+        .link-item.yt:hover { color: #ff3333; border-color: #ff3333; box-shadow: 0 0 30px rgba(255, 51, 51, 0.4); background: rgba(255, 51, 51, 0.05); }
+        .link-item.yt:hover .icon { transform: scale(1.3); filter: drop-shadow(0 0 8px #ff3333); }
+
+        .disabled { opacity: 0.3; cursor: not-allowed; border-style: dashed; }
+        .info-box { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); padding: 35px 60px; border-radius: 35px; text-align: center; max-width: 750px; margin-bottom: 60px; backdrop-filter: blur(20px); }
 
         /* --- СЕКЦИИ --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .content-section { padding: 120px 20px; display: flex; flex-direction: column; align-items: center; background: #020205; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; width: 100%; max-width: 1200px; }
-        .card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 40px; border-radius: 30px; position: relative; backdrop-filter: blur(10px); }
-        .date-label { color: #24A1DE; font-size: 11px; font-weight: 800; margin-bottom: 15px; display: block; opacity: 0.8; }
+        .card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 40px; border-radius: 30px; position: relative; transition: 0.4s; }
+        .card:hover { border-color: rgba(36, 161, 222, 0.3); transform: translateY(-10px); }
+        .date-label { color: #24A1DE; font-size: 11px; font-weight: 800; margin-bottom: 12px; display: block; }
         .detail-item { background: linear-gradient(145deg, rgba(36, 161, 222, 0.05), rgba(0,0,0,0)); border: 1px solid rgba(36, 161, 222, 0.1); padding: 40px; border-radius: 35px; margin-bottom: 30px; width: 100%; }
 
         /* --- АДМИНКА --- */
-        #adminPanel { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(95vw, 550px); background: rgba(5, 5, 10, 0.98); border: 1px solid #24A1DE; border-radius: 30px; display: none; z-index: 2000; backdrop-filter: blur(25px); overflow: hidden; box-shadow: 0 0 100px rgba(0,0,0,1); }
-        .admin-nav { display: flex; background: rgba(255,255,255,0.03); border-bottom: 1px solid #222; flex-wrap: wrap; }
-        .admin-nav-btn { flex: 1; min-width: 100px; padding: 15px; text-align: center; font-size: 9px; cursor: pointer; color: #444; text-transform: uppercase; font-weight: 800; }
+        #adminPanel { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(95vw, 550px); background: rgba(5, 5, 10, 0.98); border: 1px solid #24A1DE; border-radius: 30px; display: none; z-index: 2000; backdrop-filter: blur(25px); overflow: hidden; }
+        .admin-nav { display: flex; background: rgba(255,255,255,0.03); border-bottom: 1px solid #222; }
+        .admin-nav-btn { flex: 1; padding: 20px; text-align: center; font-size: 9px; cursor: pointer; color: #444; text-transform: uppercase; font-weight: 800; }
         .admin-nav-btn.active { color: #24A1DE; background: rgba(36, 161, 222, 0.05); }
         .admin-content { padding: 25px; display: none; overflow-y: auto; max-height: 60vh; }
         .admin-content.active { display: block; }
         input, textarea { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; outline: none; }
         .admin-main-btn { width: 100%; padding: 15px; background: #24A1DE; border: none; color: white; border-radius: 15px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
-        .admin-mini-card { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
+        .admin-mini-card { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
     </style>
 </head>
 <body>
     <div class="nebula"></div>
     <div id="starfield"></div>
 
+    <!-- АДМИНКА -->
     <div id="adminPanel">
         <div class="admin-nav">
-            <div class="admin-nav-btn active" onclick="switchTab(0)">Статус</div>
-            <div class="admin-nav-btn" onclick="switchTab(1)">Новости</div>
-            <div class="admin-nav-btn" onclick="switchTab(2)">Планы</div>
-            <div class="admin-nav-btn" onclick="switchTab(3)">Детали</div>
-            <div class="admin-nav-btn" onclick="switchTab(4)">Кнопки</div>
+            <div class="admin-nav-btn active" onclick="switchTab(0)">Status</div>
+            <div class="admin-nav-btn" onclick="switchTab(1)">News</div>
+            <div class="admin-nav-btn" onclick="switchTab(2)">Plans</div>
+            <div class="admin-nav-btn" onclick="switchTab(3)">Details</div>
+            <div class="admin-nav-btn" onclick="switchTab(4)">Buttons</div>
         </div>
         <div class="admin-content active">
-            <input type="text" id="editLaunch" placeholder="Дата запуска">
-            <input type="text" id="editVer" placeholder="Версия игры">
+            <input type="text" id="editLaunch" placeholder="Дата запуска"><input type="text" id="editVer" placeholder="Версия игры">
             <button class="admin-main-btn" onclick="saveSettings()">Save Status</button>
             <button onclick="exportData()" style="margin-top:10px; background:#333; color:white; padding:10px; width:100%; border-radius:10px; cursor:pointer; border:none; font-size:10px;">СКОПИРОВАТЬ КОД ДЛЯ ГИТХАБА</button>
         </div>
         <div class="admin-content">
-            <input type="text" id="newsTitle" placeholder="Заголовок новости"><textarea id="newsText" placeholder="Текст..." rows="2"></textarea>
+            <input type="text" id="newsTitle" placeholder="Заголовок"><textarea id="newsText" placeholder="Текст..." rows="2"></textarea>
             <input type="text" id="newsDate" placeholder="Дата"><input type="hidden" id="newsEditIdx" value="">
             <button class="admin-main-btn" id="newsBtn" onclick="saveItem('news')">Publish</button><div id="adminNewsList" style="margin-top:15px"></div>
         </div>
@@ -91,7 +110,6 @@
             <input type="hidden" id="detailEditIdx" value=""><button class="admin-main-btn" id="detailsBtn" onclick="saveItem('details')">Add Detail</button><div id="adminDetailList" style="margin-top:15px"></div>
         </div>
         <div class="admin-content">
-            <p style="font-size:10px; color:#555; margin-bottom:10px;">НАСТРОЙКА КНОПОК</p>
             <input type="text" id="btnTgText" placeholder="Текст Telegram"><input type="text" id="btnTgLink" placeholder="Ссылка Telegram">
             <input type="text" id="btnYtDevText" placeholder="Текст YouTube Разраб"><input type="text" id="btnYtDevLink" placeholder="Ссылка YouTube Разраб">
             <input type="text" id="btnYtFriendText" placeholder="Текст YouTube Друг"><input type="text" id="btnYtFriendLink" placeholder="Ссылка YouTube Друг">
@@ -100,6 +118,7 @@
         <div style="padding: 20px; text-align: center; color: #222; cursor: pointer; font-size: 10px; font-weight: 800;" onclick="document.getElementById('adminPanel').style.display='none'">[ CLOSE ]</div>
     </div>
 
+    <!-- САЙТ -->
     <div class="hero-section">
         <div class="title-container" id="titleBox">
             <h1>NightVisuals</h1>
@@ -110,14 +129,24 @@
             <p>Сайт будет запущен: <span id="displayLaunch" style="font-weight: 800;">Загрузка...</span><br>
             Версия игры: <span id="displayVersion" style="font-weight: 800;">Загрузка...</span></p>
         </div>
+        
         <div class="button-group">
             <div class="btn-row">
                 <a href="#" class="link-item disabled">Скачать (В разработке)</a>
-                <a href="#" id="linkTg" target="_blank" class="link-item">Telegram</a>
+                <a href=https://t.me/NightV1suals id="linkTg" target="_blank" class="link-item tg">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.24-5.54 3.65-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.36-.49.99-.75 3.88-1.69 6.46-2.8 7.76-3.33 3.67-1.5 4.45-1.76 4.95-1.77.11 0 .36.03.52.16.13.1.17.24.18.34 0 .07.01.21 0 .28z"/></svg>
+                    <span id="textTg">Telegram</span>
+                </a>
             </div>
             <div class="btn-row">
-                <a href="#" id="linkYtDev" target="_blank" class="link-item yt">YouTube Разработчика</a>
-                <a href="#" id="linkYtFriend" target="_blank" class="link-item yt">YouTube Друга</a>
+                <a href="#" id="linkYtDev" target="_blank" class="link-item yt">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    <span id="textYtDev">YouTube Разработчика</span>
+                </a>
+                <a href=youtube.com/@DoBRIY_TSHEL"#" id="linkYtFriend" target="_blank" class="link-item yt">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    <span id="textYtFriend">YouTube Друга</span>
+                </a>
             </div>
         </div>
     </div>
@@ -127,7 +156,7 @@
             <div id="newsFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase; letter-spacing:4px;">Новости</h2> </div>
             <div id="plansFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase; letter-spacing:4px;">Планы</h2> </div>
         </div>
-        <div class="details-section reveal" style="width: 100%; max-width: 1200px; margin-top: 100px;">
+        <div class="details-section reveal">
             <h2 style="margin-bottom: 50px; text-transform:uppercase; text-align: center; letter-spacing: 8px;">Подробности</h2>
             <div id="detailsFeed"></div>
         </div>
@@ -135,7 +164,7 @@
 
     <script>
         // ДАННЫЕ
-        let siteData = JSON.parse(localStorage.getItem('nv_v11_db')) || {
+        let siteData = JSON.parse(localStorage.getItem('nv_v12_db')) || {
             launch: "3 или 4 мая 2026", version: "Еще не подтверждена",
             buttons: { tg: "Telegram", tgL: "https://t.me", ytD: "YouTube Разработчика", ytDL: "#", ytF: "YouTube Друга", ytFL: "https://youtube.com" },
             news: [{ title: "Бета-тест скоро!", text: "Мы готовимся к запуску.", date: "02.05.2026" }],
@@ -143,22 +172,21 @@
             details: [{ title: "Визуалы", text: "Лучшие настройки неба и анимаций." }]
         };
 
+        function update() { localStorage.setItem('nv_v12_db', JSON.stringify(siteData)); render(); }
         function exportData() { navigator.clipboard.writeText(`let siteData = ${JSON.stringify(siteData, null, 4)};`); alert("Код для GitHub скопирован!"); }
 
-        // Параллакс и Искры
+        // Параллакс
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
             document.getElementById('starfield').style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
 
-        function reveal() {
-            document.querySelectorAll(".reveal").forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
-            });
-        }
+        // Скролл
+        function reveal() { document.querySelectorAll(".reveal").forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active"); }); }
         window.addEventListener("scroll", reveal);
 
+        // Звезды
         const field = document.getElementById('starfield');
         for (let i=0; i<180; i++) {
             const s = document.createElement('div'); s.className='star';
@@ -174,7 +202,7 @@
 
         window.addEventListener('keydown', (e) => {
             if (e.shiftKey && (e.key === 'A' || e.key === 'а' || e.key === 'Ф')) {
-                if (prompt("Dev Access:") === "VisualNight2026_in_dev_xd") {
+                if (prompt("Access Key:") === "VisualNight2026_in_dev_xd") {
                     document.getElementById('adminPanel').style.display = 'block';
                     renderAdmin();
                 }
@@ -186,21 +214,8 @@
             document.querySelectorAll('.admin-content').forEach((c, i) => c.classList.toggle('active', i === idx));
         }
 
-        function saveSettings() {
-            siteData.launch = document.getElementById('editLaunch').value || siteData.launch;
-            siteData.version = document.getElementById('editVer').value || siteData.version;
-            update();
-        }
-
-        function saveButtons() {
-            siteData.buttons.tg = document.getElementById('btnTgText').value || siteData.buttons.tg;
-            siteData.buttons.tgL = document.getElementById('btnTgLink').value || siteData.buttons.tgL;
-            siteData.buttons.ytD = document.getElementById('btnYtDevText').value || siteData.buttons.ytD;
-            siteData.buttons.ytDL = document.getElementById('btnYtDevLink').value || siteData.buttons.ytDL;
-            siteData.buttons.ytF = document.getElementById('btnYtFriendText').value || siteData.buttons.ytF;
-            siteData.buttons.ytFL = document.getElementById('btnYtFriendLink').value || siteData.buttons.ytFL;
-            update();
-        }
+        function saveSettings() { siteData.launch = document.getElementById('editLaunch').value || siteData.launch; siteData.version = document.getElementById('editVer').value || siteData.version; update(); }
+        function saveButtons() { siteData.buttons.tg = document.getElementById('btnTgText').value; siteData.buttons.tgL = document.getElementById('btnTgLink').value; siteData.buttons.ytD = document.getElementById('btnYtDevText').value; siteData.buttons.ytDL = document.getElementById('btnYtDevLink').value; siteData.buttons.ytF = document.getElementById('btnYtFriendText').value; siteData.buttons.ytFL = document.getElementById('btnYtFriendLink').value; update(); }
 
         function saveItem(type) {
             const prefix = type === 'news' ? 'news' : type === 'plans' ? 'plan' : 'detail';
@@ -215,7 +230,6 @@
         }
 
         function deleteItem(type, idx) { if(confirm("Del?")) { siteData[type].splice(idx, 1); update(); renderAdmin(); } }
-        function update() { localStorage.setItem('nv_v11_db', JSON.stringify(siteData)); render(); }
 
         function renderAdmin() {
             ['news', 'plans', 'details'].forEach(type => {
@@ -235,9 +249,9 @@
             document.getElementById('displayLaunch').innerText = siteData.launch;
             document.getElementById('displayVersion').innerText = siteData.version;
             const b = siteData.buttons;
-            const tg = document.getElementById('linkTg'); tg.innerText = b.tg; tg.href = b.tgL;
-            const yd = document.getElementById('linkYtDev'); yd.innerText = b.ytD; yd.href = b.ytDL;
-            const yf = document.getElementById('linkYtFriend'); yf.innerText = b.ytF; yf.href = b.ytFL;
+            document.getElementById('textTg').innerText = b.tg; document.getElementById('linkTg').href = b.tgL;
+            document.getElementById('textYtDev').innerText = b.ytD; document.getElementById('linkYtDev').href = b.ytDL;
+            document.getElementById('textYtFriend').innerText = b.ytF; document.getElementById('linkYtFriend').href = b.ytFL;
 
             ['news', 'plans'].forEach(type => {
                 const feed = document.getElementById(type+'Feed');
