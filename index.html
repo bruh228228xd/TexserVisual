@@ -20,7 +20,6 @@
         /* --- ФОН --- */
         .nebula { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(36, 161, 222, 0.08), transparent 70%); z-index: -2; animation: nebulaPulse 8s infinite alternate; }
         @keyframes nebulaPulse { from { opacity: 0.4; transform: scale(1); } to { opacity: 0.8; transform: scale(1.1); } }
-
         #starfield { position: fixed; top: -5%; left: -5%; width: 110%; height: 110%; z-index: -1; pointer-events: none; transition: transform 0.2s ease-out; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--d) infinite ease-in-out; }
         @keyframes twinkle { 0%, 100% { opacity: 0.1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.3); } }
@@ -33,20 +32,42 @@
         
         .moon-icon { width: 40px; height: 35px; box-shadow: -10px 10px 0 0 #fff; border-radius: 50%; transform: rotate(-15deg); margin-bottom: 30px; animation: moonFloat 4s ease-in-out infinite; transition: 0.5s; }
         @keyframes moonFloat { 0%, 100% { transform: rotate(-15deg) translateY(0); } 50% { transform: rotate(-25deg) translateY(-12px); } }
-        .moon-icon.blood-moon { box-shadow: -10px 10px 0 0 #ff0000 !important; filter: drop-shadow(0 0 30px #ff0000) !important; }
 
         .info-box { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); padding: 35px 60px; border-radius: 35px; text-align: center; max-width: 750px; margin-bottom: 60px; backdrop-filter: blur(20px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
-        /* --- КНОПКИ --- */
+        /* --- КНОПКИ С АНИМАЦИЯМИ --- */
         .btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; margin-bottom: 20px; }
         .link-item { 
-            text-decoration: none; color: white; padding: 16px 32px; border-radius: 18px; font-size: 11px; font-weight: 600; 
-            text-transform: uppercase; transition: 0.4s; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); 
-            display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 260px; letter-spacing: 2px;
+            text-decoration: none; color: white; padding: 18px 36px; border-radius: 18px; font-size: 11px; font-weight: 600; 
+            text-transform: uppercase; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); 
+            display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 280px; letter-spacing: 2px;
         }
-        .link-item:hover:not(.disabled) { background: white; color: black; transform: translateY(-7px); box-shadow: 0 10px 30px rgba(36, 161, 222, 0.3); }
-        .disabled { opacity: 0.2; cursor: not-allowed; border-style: dashed; filter: grayscale(1); }
-        .icon-svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* Эффект при наведении на обычные кнопки */
+        .link-item:hover:not(.disabled) { 
+            background: white; color: black; transform: translateY(-7px) scale(1.05); 
+            box-shadow: 0 15px 30px rgba(36, 161, 222, 0.4); 
+        }
+        
+        /* Мини-анимация иконок внутри кнопок */
+        .link-item:hover .icon-svg { transform: scale(1.2) rotate(-10deg); }
+
+        /* Эффект для ЗАБЛОКИРОВАННЫХ кнопок (Загрузки) */
+        .link-item.disabled { opacity: 0.2; cursor: not-allowed; border-style: dashed; filter: grayscale(1); }
+        .link-item.disabled:hover { 
+            animation: shake 0.4s ease-in-out; /* Тряска */
+            border-color: #ff4444; 
+            background: rgba(255, 68, 68, 0.05);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .icon-svg { width: 18px; height: 18px; fill: currentColor; transition: 0.4s; }
 
         /* --- СЕКЦИИ --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out; }
@@ -55,7 +76,6 @@
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; width: 100%; max-width: 1200px; }
         .card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 40px; border-radius: 30px; transition: 0.4s; position: relative; }
         .card:hover { border-color: rgba(36, 161, 222, 0.4); transform: translateY(-10px); }
-        .date-label { color: #24A1DE; font-size: 11px; font-weight: 800; margin-bottom: 15px; display: block; opacity: 0.8; }
         .detail-item { background: linear-gradient(145deg, rgba(36, 161, 222, 0.05), rgba(0,0,0,0)); border: 1px solid rgba(36, 161, 222, 0.1); padding: 40px; border-radius: 35px; margin-bottom: 30px; width: 100%; }
 
         /* АДМИНКА */
@@ -65,9 +85,9 @@
         .admin-nav-btn.active { color: #24A1DE; background: rgba(36, 161, 222, 0.05); }
         .admin-content { padding: 30px; display: none; overflow-y: auto; max-height: 60vh; }
         .admin-content.active { display: block; }
-        input, textarea { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; outline: none; }
+        input, textarea { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; outline: none; }
         .admin-main-btn { width: 100%; padding: 15px; background: #24A1DE; border: none; color: white; border-radius: 15px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
-        .admin-mini-card { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
+        .admin-mini-card { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
     </style>
 </head>
 <body>
@@ -75,6 +95,7 @@
     <div class="nebula"></div>
     <div id="starfield"></div>
 
+    <!-- АДМИНКА -->
     <div id="adminPanel">
         <div class="admin-nav">
             <div class="admin-nav-btn active" onclick="switchTab(0)">Status</div>
@@ -84,35 +105,36 @@
         </div>
         <div class="admin-content active">
             <input type="text" id="editLaunch" placeholder="Дата запуска"><input type="text" id="editVer" placeholder="Версия игры">
-            <button class="admin-main-btn" onclick="saveSettings()">Save Changes</button>
-            <button onclick="exportData()" style="margin-top:10px; background:#333; color:white; padding:10px; width:100%; border-radius:10px; cursor:pointer; border:none; font-size:10px;">СКОПИРОВАТЬ КОД ДАННЫХ</button>
+            <button class="admin-main-btn" onclick="saveSettings()">Apply Changes</button>
+            <button onclick="exportData()" style="margin-top:10px; background:#333; color:white; padding:10px; width:100%; border-radius:10px; cursor:pointer; border:none; font-size:10px;">СКОПИРОВАТЬ КОД ДЛЯ ГИТХАБА</button>
         </div>
         <div class="admin-content">
             <input type="text" id="newsTitle" placeholder="Заголовок"><textarea id="newsText" placeholder="Текст..." rows="2"></textarea>
             <input type="text" id="newsDate" placeholder="Дата"><input type="hidden" id="newsEditIdx" value="">
-            <button class="admin-main-btn" id="newsBtn" onclick="saveItem('news')">Publish</button><div id="adminNewsList" style="margin-top:15px"></div>
+            <button class="admin-main-btn" onclick="saveItem('news')">Publish</button><div id="adminNewsList" style="margin-top:15px"></div>
         </div>
         <div class="admin-content">
             <input type="text" id="planTitle" placeholder="Цель"><textarea id="planText" placeholder="Описание..." rows="2"></textarea>
             <input type="text" id="planDate" placeholder="Срок"><input type="hidden" id="planEditIdx" value="">
-            <button class="admin-main-btn" id="plansBtn" onclick="saveItem('plans')">Add Plan</button><div id="adminPlanList" style="margin-top:15px"></div>
+            <button class="admin-main-btn" onclick="saveItem('plans')">Add Plan</button><div id="adminPlanList" style="margin-top:15px"></div>
         </div>
         <div class="admin-content">
             <input type="text" id="detailTitle" placeholder="Функция"><textarea id="detailText" placeholder="Описание..." rows="3"></textarea>
-            <input type="hidden" id="detailEditIdx" value=""><button class="admin-main-btn" id="detailsBtn" onclick="saveItem('details')">Add Detail</button><div id="adminDetailList" style="margin-top:15px"></div>
+            <input type="hidden" id="detailEditIdx" value=""><button class="admin-main-btn" onclick="saveItem('details')">Add Detail</button><div id="adminDetailList" style="margin-top:15px"></div>
         </div>
         <div style="padding: 20px; text-align: center; color: #222; cursor: pointer; font-size: 10px; font-weight: 800;" onclick="document.getElementById('adminPanel').style.display='none'">[ CLOSE ]</div>
     </div>
 
+    <!-- САЙТ -->
     <div class="hero-section">
         <div class="title-container" id="titleBox">
             <h1>NightVisuals</h1>
             <div class="moon-icon" id="moon"></div>
         </div>
         <div class="info-box">
-            <h3 style="margin-bottom: 12px; letter-spacing: 3px; text-transform: uppercase; font-size: 13px; color: #24A1DE;">Project Status</h3>
-            <p>Сайт будет запущен: <span id="displayLaunch" style="font-weight: 800; color:#fff;">Загрузка...</span><br>
-            Версия игры: <span id="displayVersion" style="font-weight: 800; color:#fff;">Загрузка...</span></p>
+            <h3 style="margin-bottom: 12px; letter-spacing: 3px; text-transform: uppercase; font-size: 13px; color: #24A1DE;">Project Timeline</h3>
+            <p>Сайт будет запущен: <span id="displayLaunch" style="font-weight: 800; color:#fff;">3 или 4 мая 2026</span><br>
+            Версия игры: <span id="displayVersion" style="font-weight: 800; color:#fff;">Еще не подтверждена</span></p>
         </div>
         <div class="button-group">
             <div class="btn-row">
@@ -134,33 +156,26 @@
 
     <div class="content-section">
         <div class="grid-container">
-            <div id="newsFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase; letter-spacing:4px;">Новости</h2> </div>
-            <div id="plansFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase; letter-spacing:4px;">Планы</h2> </div>
+            <div id="newsFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase;">Новости</h2> </div>
+            <div id="plansFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase;">Планы</h2> </div>
         </div>
         <div class="details-section reveal" style="width: 100%; max-width: 1200px; margin-top: 100px;">
             <h2 style="margin-bottom: 50px; text-transform:uppercase; text-align: center; letter-spacing: 8px;">Подробности</h2>
             <div id="detailsFeed"></div>
         </div>
-        <div style="margin-top: 150px; opacity: 0.1; font-size: 9px; text-transform: uppercase;">© 2026 NightVisuals Project</div>
     </div>
 
     <script>
-        // ДАННЫЕ (ГИТХАБ)
-        let siteData = JSON.parse(localStorage.getItem('nv_final_v17')) || {
+        let siteData = JSON.parse(localStorage.getItem('nv_final_v18')) || {
             launch: "3 или 4 мая 2026", version: "Еще не подтверждена",
-            news: [
-                { title: "Релиз кнопки скачать", text: "9 мая 2026 года будет официально разблокирована кнопка скачать для всех пользователей.", date: "02.05.2026" },
-                { title: "Бета-тест скоро!", text: "Мы готовимся к открытию.", date: "02.05.2026" }
-            ],
+            news: [{ title: "Релиз скачивания", text: "9 мая 2026 года будет разблокирована кнопка скачать.", date: "02.05.2026" }],
             plans: [{ title: "Версия", text: "Анализируем 1.16.5.", date: "МАЙ" }],
             details: [{ title: "Визуалы", text: "Лучшие настройки анимаций." }]
         };
 
         // ПАРАЛЛАКС
         document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            document.getElementById('starfield').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            document.getElementById('starfield').style.transform = `translate(${(e.clientX - window.innerWidth/2)*0.01}px, ${(e.clientY - window.innerHeight/2)*0.01}px)`;
         });
 
         // СКРОЛЛ
@@ -175,12 +190,6 @@
             s.style.top=Math.random()*100+'vh'; s.style.left=Math.random()*100+'vw';
             s.style.setProperty('--d', Math.random()*3+3+'s'); field.appendChild(s);
         }
-
-        // ЛУНА
-        const moon = document.getElementById('moon');
-        let moonT;
-        document.getElementById('titleBox').onmouseenter=()=>{moonT=setTimeout(()=>moon.classList.add('blood-moon'),20000)};
-        document.getElementById('titleBox').onmouseleave=()=>{clearTimeout(moonT); moon.classList.remove('blood-moon')};
 
         // АДМИНКА
         window.addEventListener('keydown', (e) => {
@@ -197,39 +206,32 @@
             document.querySelectorAll('.admin-content').forEach((c, i) => c.classList.toggle('active', i === idx));
         }
 
-        function saveSettings() { siteData.launch = document.getElementById('editLaunch').value || siteData.launch; siteData.version = document.getElementById('editVer').value || siteData.version; update(); }
+        function saveSettings() { siteData.launch = document.getElementById('editLaunch').value; siteData.version = document.getElementById('editVer').value; update(); }
 
         function saveItem(type) {
             const p = type === 'news' ? 'news' : type === 'plans' ? 'plan' : 'detail';
             const t = document.getElementById(p+'Title').value; const txt = document.getElementById(p+'Text').value;
             const d = document.getElementById(p+'Date') ? document.getElementById(p+'Date').value : "";
-            const i = document.getElementById(p+'EditIdx').value;
             if(!t || !txt) return;
-            const item = { title: t, text: txt, date: d || new Date().toLocaleDateString('ru-RU') };
-            if(i !== "") siteData[type][i] = item; else siteData[type].push(item);
+            siteData[type].push({ title: t, text: txt, date: d || new Date().toLocaleDateString('ru-RU') });
             update(); renderAdmin();
         }
 
         function deleteItem(type, idx) { if(confirm("Del?")) { siteData[type].splice(idx, 1); update(); renderAdmin(); } }
-        function update() { localStorage.setItem('nv_final_v17', JSON.stringify(siteData)); render(); }
-        function exportData() { navigator.clipboard.writeText(`let siteData = ${JSON.stringify(siteData, null, 4)};`); alert("Данные скопированы!"); }
+        function update() { localStorage.setItem('nv_final_v18', JSON.stringify(siteData)); render(); }
+        function exportData() { navigator.clipboard.writeText(`let siteData = ${JSON.stringify(siteData, null, 4)};`); alert("Скопировано!"); }
 
         function renderAdmin() {
             ['news', 'plans', 'details'].forEach(type => {
                 const list = document.getElementById(type === 'news' ? 'adminNewsList' : type === 'plans' ? 'adminPlanList' : 'adminDetailList');
                 list.innerHTML = "";
-                siteData[type].forEach((item, i) => {
-                    list.insertAdjacentHTML('beforeend', `<div class="admin-mini-card"><span>${item.title}</span><button onclick="deleteItem('${type}',${i})" style="color:red; background:none; border:none; cursor:pointer;">DEL</button></div>`);
-                });
+                siteData[type].forEach((item, i) => list.insertAdjacentHTML('beforeend', `<div class="admin-mini-card"><span>${item.title}</span><button onclick="deleteItem('${type}',${i})" style="color:red; background:none; border:none; cursor:pointer;">DEL</button></div>`));
             });
-            document.getElementById('editLaunch').value = siteData.launch;
-            document.getElementById('editVer').value = siteData.version;
         }
 
         function render() {
             document.getElementById('displayLaunch').innerText = siteData.launch;
             document.getElementById('displayVersion').innerText = siteData.version;
-
             ['news', 'plans'].forEach(type => {
                 const feed = document.getElementById(type+'Feed');
                 feed.innerHTML = `<h2 style="margin-bottom:35px; text-transform:uppercase;">${type==='news'?'Новости':'Планы'}</h2>`;
