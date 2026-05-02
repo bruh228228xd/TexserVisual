@@ -17,65 +17,50 @@
         }
         @keyframes siteAppear { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- ФОН --- */
+        /* --- ЭФФЕКТЫ --- */
         .nebula { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(36, 161, 222, 0.08), transparent 70%); z-index: -2; animation: nebulaPulse 8s infinite alternate; }
         @keyframes nebulaPulse { from { opacity: 0.4; transform: scale(1); } to { opacity: 0.8; transform: scale(1.1); } }
         #starfield { position: fixed; top: -5%; left: -5%; width: 110%; height: 110%; z-index: -1; pointer-events: none; transition: transform 0.2s ease-out; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--d) infinite ease-in-out; }
         @keyframes twinkle { 0%, 100% { opacity: 0.1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.3); } }
 
+        .fx-toggle { position: fixed; top: 20px; right: 20px; z-index: 100; padding: 10px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; font-size: 10px; cursor: pointer; color: #555; transition: 0.3s; backdrop-filter: blur(5px); text-transform: uppercase; font-weight: 800; }
+        .fx-toggle:hover { color: white; border-color: #24A1DE; }
+        body.no-fx .nebula, body.no-fx #starfield { display: none !important; }
+
         /* --- ГЛАВНЫЙ ЭКРАН --- */
         .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 40px 20px; }
         .title-container { position: relative; margin-bottom: 50px; display: flex; align-items: center; gap: 25px; cursor: default; }
         h1 { font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: 800; letter-spacing: 10px; text-transform: uppercase; background: linear-gradient(90deg, #fff, #24A1DE, #fff, #24A1DE); background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: titleGlow 5s linear infinite; filter: drop-shadow(0 0 15px rgba(36, 161, 222, 0.4)); }
         @keyframes titleGlow { to { background-position: 300% center; } }
-        
-        .moon-icon { width: 40px; height: 35px; box-shadow: -10px 10px 0 0 #fff; border-radius: 50%; transform: rotate(-15deg); margin-bottom: 30px; animation: moonFloat 4s ease-in-out infinite; transition: 0.5s; }
+        .moon-icon { width: 40px; height: 35px; box-shadow: -10px 10px 0 0 #fff; border-radius: 50%; transform: rotate(-15deg); margin-bottom: 30px; animation: moonFloat 4s ease-in-out infinite; }
         @keyframes moonFloat { 0%, 100% { transform: rotate(-15deg) translateY(0); } 50% { transform: rotate(-25deg) translateY(-12px); } }
 
         .info-box { background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.08); padding: 35px 60px; border-radius: 35px; text-align: center; max-width: 750px; margin-bottom: 60px; backdrop-filter: blur(20px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
-        /* --- КНОПКИ С АНИМАЦИЯМИ --- */
+        /* --- КНОПКИ --- */
         .btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; margin-bottom: 20px; }
         .link-item { 
-            text-decoration: none; color: white; padding: 18px 36px; border-radius: 18px; font-size: 11px; font-weight: 600; 
+            text-decoration: none; color: white; padding: 16px 32px; border-radius: 18px; font-size: 11px; font-weight: 600; 
             text-transform: uppercase; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); 
             display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 280px; letter-spacing: 2px;
         }
-
-        /* Эффект при наведении на обычные кнопки */
-        .link-item:hover:not(.disabled) { 
-            background: white; color: black; transform: translateY(-7px) scale(1.05); 
-            box-shadow: 0 15px 30px rgba(36, 161, 222, 0.4); 
-        }
-        
-        /* Мини-анимация иконок внутри кнопок */
-        .link-item:hover .icon-svg { transform: scale(1.2) rotate(-10deg); }
-
-        /* Эффект для ЗАБЛОКИРОВАННЫХ кнопок (Загрузки) */
-        .link-item.disabled { opacity: 0.2; cursor: not-allowed; border-style: dashed; filter: grayscale(1); }
-        .link-item.disabled:hover { 
-            animation: shake 0.4s ease-in-out; /* Тряска */
-            border-color: #ff4444; 
-            background: rgba(255, 68, 68, 0.05);
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .icon-svg { width: 18px; height: 18px; fill: currentColor; transition: 0.4s; }
+        .link-item:hover:not(.disabled) { background: white; color: black; transform: translateY(-7px) scale(1.05); box-shadow: 0 10px 30px rgba(36, 161, 222, 0.4); }
+        .link-item.tg:hover, .link-item.sup:hover { color: #24A1DE; border-color: #24A1DE; }
+        .link-item.yt:hover { color: #ff3333; border-color: #ff3333; }
+        .link-item:hover .icon-svg { transform: scale(1.2) rotate(-5deg); }
+        .disabled { opacity: 0.15; cursor: not-allowed; border-style: dashed; filter: grayscale(1); }
+        .icon-svg { width: 18px; height: 18px; fill: currentColor; transition: 0.3s; }
 
         /* --- СЕКЦИИ --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .content-section { padding: 100px 20px; display: flex; flex-direction: column; align-items: center; background: #020205; }
+        .content-section { padding: 80px 20px; display: flex; flex-direction: column; align-items: center; background: #020205; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; width: 100%; max-width: 1200px; }
         .card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.04); padding: 40px; border-radius: 30px; transition: 0.4s; position: relative; }
         .card:hover { border-color: rgba(36, 161, 222, 0.4); transform: translateY(-10px); }
+        .date-label { color: #24A1DE; font-size: 11px; font-weight: 800; margin-bottom: 15px; display: block; opacity: 0.8; }
         .detail-item { background: linear-gradient(145deg, rgba(36, 161, 222, 0.05), rgba(0,0,0,0)); border: 1px solid rgba(36, 161, 222, 0.1); padding: 40px; border-radius: 35px; margin-bottom: 30px; width: 100%; }
 
         /* АДМИНКА */
@@ -94,6 +79,7 @@
 
     <div class="nebula"></div>
     <div id="starfield"></div>
+    <div class="fx-toggle" id="fxBtn" onclick="toggleFX()">FX: ON</div>
 
     <!-- АДМИНКА -->
     <div id="adminPanel">
@@ -105,22 +91,22 @@
         </div>
         <div class="admin-content active">
             <input type="text" id="editLaunch" placeholder="Дата запуска"><input type="text" id="editVer" placeholder="Версия игры">
-            <button class="admin-main-btn" onclick="saveSettings()">Apply Changes</button>
-            <button onclick="exportData()" style="margin-top:10px; background:#333; color:white; padding:10px; width:100%; border-radius:10px; cursor:pointer; border:none; font-size:10px;">СКОПИРОВАТЬ КОД ДЛЯ ГИТХАБА</button>
+            <button class="admin-main-btn" onclick="saveSettings()">Save Changes</button>
+            <button onclick="exportData()" style="margin-top:15px; background:#333; color:white; padding:10px; width:100%; border-radius:10px; cursor:pointer; border:none; font-size:10px;">СКОПИРОВАТЬ КОД ДЛЯ ГИТХАБА</button>
         </div>
         <div class="admin-content">
             <input type="text" id="newsTitle" placeholder="Заголовок"><textarea id="newsText" placeholder="Текст..." rows="2"></textarea>
             <input type="text" id="newsDate" placeholder="Дата"><input type="hidden" id="newsEditIdx" value="">
-            <button class="admin-main-btn" onclick="saveItem('news')">Publish</button><div id="adminNewsList" style="margin-top:15px"></div>
+            <button class="admin-main-btn" id="newsBtn" onclick="saveItem('news')">Publish</button><div id="adminNewsList" style="margin-top:20px"></div>
         </div>
         <div class="admin-content">
             <input type="text" id="planTitle" placeholder="Цель"><textarea id="planText" placeholder="Описание..." rows="2"></textarea>
             <input type="text" id="planDate" placeholder="Срок"><input type="hidden" id="planEditIdx" value="">
-            <button class="admin-main-btn" onclick="saveItem('plans')">Add Plan</button><div id="adminPlanList" style="margin-top:15px"></div>
+            <button class="admin-main-btn" id="plansBtn" onclick="saveItem('plans')">Add Plan</button><div id="adminPlanList" style="margin-top:20px"></div>
         </div>
         <div class="admin-content">
-            <input type="text" id="detailTitle" placeholder="Функция"><textarea id="detailText" placeholder="Описание..." rows="3"></textarea>
-            <input type="hidden" id="detailEditIdx" value=""><button class="admin-main-btn" onclick="saveItem('details')">Add Detail</button><div id="adminDetailList" style="margin-top:15px"></div>
+            <input type="text" id="detailTitle" placeholder="Функция"><textarea id="detailText" placeholder="Подробности..." rows="3"></textarea>
+            <input type="hidden" id="detailEditIdx" value=""><button class="admin-main-btn" id="detailsBtn" onclick="saveItem('details')">Add Detail</button><div id="adminDetailList" style="margin-top:15px"></div>
         </div>
         <div style="padding: 20px; text-align: center; color: #222; cursor: pointer; font-size: 10px; font-weight: 800;" onclick="document.getElementById('adminPanel').style.display='none'">[ CLOSE ]</div>
     </div>
@@ -132,9 +118,9 @@
             <div class="moon-icon" id="moon"></div>
         </div>
         <div class="info-box">
-            <h3 style="margin-bottom: 12px; letter-spacing: 3px; text-transform: uppercase; font-size: 13px; color: #24A1DE;">Project Timeline</h3>
-            <p>Сайт будет запущен: <span id="displayLaunch" style="font-weight: 800; color:#fff;">3 или 4 мая 2026</span><br>
-            Версия игры: <span id="displayVersion" style="font-weight: 800; color:#fff;">Еще не подтверждена</span></p>
+            <h3 style="margin-bottom: 12px; letter-spacing: 3px; text-transform: uppercase; font-size: 13px; color: #24A1DE;">Project Status</h3>
+            <p>Сайт будет запущен: <span id="displayLaunch" style="font-weight: 800; color:#fff;">Загрузка...</span><br>
+            Версия игры: <span id="displayVersion" style="font-weight: 800; color:#fff;">Загрузка...</span></p>
         </div>
         <div class="button-group">
             <div class="btn-row">
@@ -142,13 +128,19 @@
                 <a href="javascript:void(0)" class="link-item disabled">Платная версия (В разработке)</a>
             </div>
             <div class="btn-row">
-                <a href="https://t.me/NightV1suals" target="_blank" class="link-item">
+                <a href="https://t.me/NightV1suals" target="_blank" class="link-item tg">
                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.24-5.54 3.65-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.36-.49.99-.75 3.88-1.69 6.46-2.8 7.76-3.33 3.67-1.5 4.45-1.76 4.95-1.77.11 0 .36.03.52.16.13.1.17.24.18.34 0 .07.01.21 0 .28z"/></svg>
                     Telegram
                 </a>
-                <a href="https://youtube.com/@DoBRIY_TSHEL" target="_blank" class="link-item">
+                <a href="https://www.youtube.com/@DoBRIY_TSHEL" target="_blank" class="link-item yt">
                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     YouTube Друга
+                </a>
+            </div>
+            <div class="btn-row">
+                <a href="https://t.me/NightV1suals" target="_blank" class="link-item sup">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
+                    Тех поддержка
                 </a>
             </div>
         </div>
@@ -156,8 +148,8 @@
 
     <div class="content-section">
         <div class="grid-container">
-            <div id="newsFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase;">Новости</h2> </div>
-            <div id="plansFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase;">Планы</h2> </div>
+            <div id="newsFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase; letter-spacing:4px;">Новости</h2> </div>
+            <div id="plansFeed" class="reveal"> <h2 style="margin-bottom:40px; text-transform:uppercase; letter-spacing:4px;">Планы</h2> </div>
         </div>
         <div class="details-section reveal" style="width: 100%; max-width: 1200px; margin-top: 100px;">
             <h2 style="margin-bottom: 50px; text-transform:uppercase; text-align: center; letter-spacing: 8px;">Подробности</h2>
@@ -166,15 +158,23 @@
     </div>
 
     <script>
-        let siteData = JSON.parse(localStorage.getItem('nv_final_v18')) || {
+        // --- ДАННЫЕ (ВСТАВИЛ ТВОИ ССЫЛКИ СЮДА) ---
+        let siteData = JSON.parse(localStorage.getItem('nv_v20_db')) || {
             launch: "3 или 4 мая 2026", version: "Еще не подтверждена",
             news: [{ title: "Релиз скачивания", text: "9 мая 2026 года будет разблокирована кнопка скачать.", date: "02.05.2026" }],
             plans: [{ title: "Версия", text: "Анализируем 1.16.5.", date: "МАЙ" }],
-            details: [{ title: "Визуалы", text: "Лучшие настройки анимаций." }]
+            details: [{ title: "Визуалы", text: "Лучшие настройки анимаций для комфортной игры." }]
         };
+
+        // FX TOGGLE
+        let fxEnabled = localStorage.getItem('fxEnabled') !== 'false';
+        function updateFX() { document.body.classList.toggle('no-fx', !fxEnabled); document.getElementById('fxBtn').innerText = fxEnabled ? "FX: ON" : "FX: OFF"; }
+        function toggleFX() { fxEnabled = !fxEnabled; localStorage.setItem('fxEnabled', fxEnabled); updateFX(); }
+        updateFX();
 
         // ПАРАЛЛАКС
         document.addEventListener('mousemove', (e) => {
+            if(!fxEnabled) return;
             document.getElementById('starfield').style.transform = `translate(${(e.clientX - window.innerWidth/2)*0.01}px, ${(e.clientY - window.innerHeight/2)*0.01}px)`;
         });
 
@@ -191,42 +191,41 @@
             s.style.setProperty('--d', Math.random()*3+3+'s'); field.appendChild(s);
         }
 
-        // АДМИНКА
+        // АДМИНКА (SHIFT + A)
         window.addEventListener('keydown', (e) => {
             if (e.shiftKey && (e.key === 'A' || e.key === 'а' || e.key === 'Ф')) {
-                if (prompt("Dev Access:") === "VisualNight2026_in_dev_xd") {
+                if (prompt("Access Key:") === "VisualNight2026_in_dev_xd") {
                     document.getElementById('adminPanel').style.display = 'block';
                     renderAdmin();
                 }
             }
         });
 
-        function switchTab(idx) {
-            document.querySelectorAll('.admin-nav-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
-            document.querySelectorAll('.admin-content').forEach((c, i) => c.classList.toggle('active', i === idx));
-        }
-
+        function switchTab(idx) { document.querySelectorAll('.admin-nav-btn').forEach((b, i) => b.classList.toggle('active', i === idx)); document.querySelectorAll('.admin-content').forEach((c, i) => c.classList.toggle('active', i === idx)); }
         function saveSettings() { siteData.launch = document.getElementById('editLaunch').value; siteData.version = document.getElementById('editVer').value; update(); }
-
         function saveItem(type) {
             const p = type === 'news' ? 'news' : type === 'plans' ? 'plan' : 'detail';
             const t = document.getElementById(p+'Title').value; const txt = document.getElementById(p+'Text').value;
             const d = document.getElementById(p+'Date') ? document.getElementById(p+'Date').value : "";
+            const i = document.getElementById(p+'EditIdx').value;
             if(!t || !txt) return;
-            siteData[type].push({ title: t, text: txt, date: d || new Date().toLocaleDateString('ru-RU') });
+            const item = { title: t, text: txt, date: d || new Date().toLocaleDateString('ru-RU') };
+            if(i !== "") siteData[type][i] = item; else siteData[type].push(item);
             update(); renderAdmin();
         }
 
         function deleteItem(type, idx) { if(confirm("Del?")) { siteData[type].splice(idx, 1); update(); renderAdmin(); } }
-        function update() { localStorage.setItem('nv_final_v18', JSON.stringify(siteData)); render(); }
-        function exportData() { navigator.clipboard.writeText(`let siteData = ${JSON.stringify(siteData, null, 4)};`); alert("Скопировано!"); }
+        function update() { localStorage.setItem('nv_v20_db', JSON.stringify(siteData)); render(); }
+        function exportData() { navigator.clipboard.writeText(`let siteData = ${JSON.stringify(siteData, null, 4)};`); alert("Код для GitHub скопирован!"); }
 
         function renderAdmin() {
             ['news', 'plans', 'details'].forEach(type => {
-                const list = document.getElementById(type === 'news' ? 'adminNewsList' : type === 'plans' ? 'adminPlanList' : 'adminDetailList');
-                list.innerHTML = "";
+                const listId = type === 'news' ? 'adminNewsList' : type === 'plans' ? 'adminPlanList' : 'adminDetailList';
+                const list = document.getElementById(listId); list.innerHTML = "";
                 siteData[type].forEach((item, i) => list.insertAdjacentHTML('beforeend', `<div class="admin-mini-card"><span>${item.title}</span><button onclick="deleteItem('${type}',${i})" style="color:red; background:none; border:none; cursor:pointer;">DEL</button></div>`));
             });
+            document.getElementById('editLaunch').value = siteData.launch;
+            document.getElementById('editVer').value = siteData.version;
         }
 
         function render() {
@@ -234,11 +233,11 @@
             document.getElementById('displayVersion').innerText = siteData.version;
             ['news', 'plans'].forEach(type => {
                 const feed = document.getElementById(type+'Feed');
-                feed.innerHTML = `<h2 style="margin-bottom:35px; text-transform:uppercase;">${type==='news'?'Новости':'Планы'}</h2>`;
-                siteData[type].forEach(item => feed.insertAdjacentHTML('beforeend', `<div class="card"><span class="date-label">${item.date}</span><h4>${item.title}</h4><p style="font-size:13px; color:#888;">${item.text}</p></div>`));
+                feed.innerHTML = `<h2 style="margin-bottom:35px; text-transform:uppercase; letter-spacing:4px;">${type==='news'?'Новости':'Планы'}</h2>`;
+                siteData[type].forEach(item => feed.insertAdjacentHTML('beforeend', `<div class="card"><span class="date-label">${item.date}</span><h4>${item.title}</h4><p style="font-size:13px; color:#888; margin-top:10px;">${item.text}</p></div>`));
             });
             const dFeed = document.getElementById('detailsFeed'); dFeed.innerHTML = "";
-            siteData.details.forEach(item => dFeed.insertAdjacentHTML('beforeend', `<div class="detail-item"><h4>${item.title}</h4><p style="font-size:15px; color:#999;">${item.text}</p></div>`));
+            siteData.details.forEach(item => dFeed.insertAdjacentHTML('beforeend', `<div class="detail-item"><h4>${item.title}</h4><p style="font-size:15px; color:#999; line-height:1.8;">${item.text}</p></div>`));
             reveal();
         }
         render();
